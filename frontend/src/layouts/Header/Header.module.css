@@ -1,0 +1,239 @@
+﻿.header {
+  height: var(--header-height);
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-lg);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: var(--shadow-sm);
+  gap: var(--space-md);
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.mobileMenuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+
+.mobileMenuBtn:hover {
+  background-color: var(--color-bg-hover);
+  color: var(--color-primary);
+}
+
+.pageTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.centerSection {
+  flex: 1;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.headerSearch {
+  width: 100%;
+}
+
+.closeSearchBtn {
+  display: none;
+  padding: 6px;
+  margin-left: 6px;
+  color: var(--color-text-muted);
+}
+
+.mobileSearchTrigger {
+  display: none;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-light);
+  background-color: var(--color-bg-subtle);
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.actionIconBtn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-light);
+  background-color: var(--color-bg-subtle);
+  transition: all var(--dur-fast);
+  cursor: pointer;
+}
+
+.actionIconBtn:hover {
+  background-color: var(--color-bg-hover);
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
+
+.actionIconBtn:focus-visible,
+.userProfile:focus-visible,
+.mobileMenuBtn:focus-visible {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+.badgeCount {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-danger);
+  box-shadow: 0 0 0 2px var(--color-bg-surface);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--color-border);
+  margin: 0 4px;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 4px 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all var(--dur-fast);
+  text-align: left;
+}
+
+.userProfile:hover {
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-border-light);
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  line-height: 1.2;
+}
+
+.userRole {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 900px) {
+  .mobileMenuBtn {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 var(--space-md);
+  }
+
+  .userInfo {
+    display: none;
+  }
+
+  .centerSection {
+    display: none;
+  }
+
+  .mobileSearchTrigger {
+    display: inline-flex;
+  }
+
+  .centerSection.searchExpanded {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg-surface);
+    padding: 0 var(--space-md);
+    z-index: 100;
+    max-width: 100%;
+  }
+
+  .centerSection.searchExpanded .closeSearchBtn {
+    display: inline-flex;
+  }
+}

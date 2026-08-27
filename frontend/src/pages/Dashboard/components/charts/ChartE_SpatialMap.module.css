@@ -1,0 +1,392 @@
+.card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 480px;
+  box-sizing: border-box;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+}
+
+.liveBadge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #0284c7;
+  background-color: #e0f2fe;
+  border: 1px solid #bae6fd;
+  padding: 2px 7px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cardSubtitle {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.controlsRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.brandChip {
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+
+.brandChip:hover {
+  border-color: var(--color-primary);
+  background-color: #f1f5f9;
+}
+
+.activeBrand {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary);
+}
+
+.activeBrand:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Mini KPI Bar */
+.kpiBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+}
+
+.kpiItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: fit-content;
+}
+
+.kpiLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.kpiValue {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.kpiDivider {
+  width: 1px;
+  height: 24px;
+  background-color: #cbd5e1;
+}
+
+/* Interactive Map Canvas Container */
+.mapContainer {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #f0f7ff 0%, #e2eaf4 100%);
+  border-radius: var(--radius-sm);
+  border: 1px solid #cbd5e1;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.grabbing {
+  cursor: grabbing !important;
+}
+
+.mapSvg {
+  width: 100%;
+  height: 100%;
+  min-height: 330px;
+  max-height: 420px;
+  transition: transform 0.15s ease-out;
+}
+
+/* Province Polygons */
+.provincesGroup {
+  cursor: pointer;
+}
+
+.provincePath {
+  stroke: #ffffff;
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  transition: fill 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease;
+}
+
+.provinceHovered {
+  stroke: #0f172a !important;
+  stroke-width: 2.2 !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 59, 115, 0.45));
+}
+
+.provinceSelected {
+  stroke: #c026d3 !important;
+  stroke-width: 2.8 !important;
+  filter: drop-shadow(0 0 12px rgba(192, 38, 211, 0.6));
+}
+
+.islandLabels {
+  user-select: none;
+}
+
+.islandLabel {
+  font-size: 11px;
+  font-weight: 800;
+  fill: #475569;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+}
+
+/* Map Zoom Controls */
+.mapControls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+
+.mapControlBtn {
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+}
+
+.mapControlBtn:hover {
+  background-color: #f1f5f9;
+  color: #0284c7;
+  border-color: #0284c7;
+}
+
+/* Tooltip Popup */
+.tooltip {
+  position: absolute;
+  background-color: #0f172a;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  font-size: 11px;
+  pointer-events: none;
+  min-width: 210px;
+  z-index: 20;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tooltipHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 5px;
+  gap: 8px;
+}
+
+.tooltipTitle {
+  font-weight: 700;
+  font-size: 13px;
+  color: #f8fafc;
+}
+
+.tooltipRegionBadge {
+  font-size: 9px;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: #e2e8f0;
+}
+
+.tooltipBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tooltipStatRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tooltipLabel {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.tooltipAchievement {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: -2px;
+  margin-bottom: 2px;
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.tooltipDetailRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tooltipValue {
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.leaderBadge {
+  background-color: #0284c7;
+  color: #ffffff;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 10px;
+}
+
+/* Choropleth Legend */
+.legendContainer {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  color: #475569;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.92);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.legendTitle {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.legendSteps {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}

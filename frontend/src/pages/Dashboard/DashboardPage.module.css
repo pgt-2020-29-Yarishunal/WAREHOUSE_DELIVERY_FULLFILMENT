@@ -1,0 +1,95 @@
+.dashboardRoot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-2xl);
+  width: 100%;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: var(--space-md);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary-light);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loadingText {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* Layer 1: Status Overview Grid (2 Equal Columns: Chart B & Chart C) */
+.gridLayer1 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Layer 2: Regional & Geospatial Grid (Chart E: 1.45fr | Chart D: 1fr) */
+.gridRegional {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: var(--space-md);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Layer 3: Warehouse Operations & Bottlenecks (Chart F: 1.2fr | Chart G: 1fr) */
+.gridLayer3 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-md);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Layer 4: Fleet Logistics & Distribution (Chart H: 1fr | Chart I: 1.55fr) */
+.gridLayer4 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+  gap: var(--space-md);
+  align-items: stretch;
+  width: 100%;
+}
+
+.gridCol {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Full Width Section for 100% Spanning Cards (Chart J) */
+.fullWidthSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive Breakpoints only for Small Mobile Viewports */
+@media (max-width: 768px) {
+  .gridLayer1,
+  .gridRegional,
+  .gridLayer3,
+  .gridLayer4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

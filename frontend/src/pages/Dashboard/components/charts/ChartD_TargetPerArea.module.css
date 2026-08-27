@@ -1,0 +1,132 @@
+.card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-md);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 390px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: var(--space-xs);
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+}
+
+.cardSubtitle {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* Scrollable Bar List */
+.barList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) 0;
+  max-height: 27rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Custom Sleek Scrollbar */
+.barList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.barList::-webkit-scrollbar-track {
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-full);
+}
+
+.barList::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.barList::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-subtle);
+}
+
+.barRow {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+
+.areaInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.areaName {
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.areaVolume {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.barTrack {
+  position: relative;
+  height: 20px;
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-sm);
+  overflow: hidden;
+  width: 100%;
+}
+
+.barFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: var(--radius-xs);
+  transition: width 0.5s ease;
+}
+
+.fillNormal {
+  background: linear-gradient(90deg, #84b9e9, var(--color-primary-light));
+}
+
+.fillOver {
+  background: linear-gradient(90deg, var(--color-primary-light), var(--color-success));
+}
+
+.percentBadge {
+  position: relative;
+  z-index: 3;
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  font-variant-numeric: tabular-nums;
+}

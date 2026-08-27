@@ -1,0 +1,314 @@
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--color-primary-dark);
+  color: var(--color-text-inverse);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  left: 0;
+  transition: width var(--dur-normal) var(--ease-standard), transform var(--dur-normal) var(--ease-standard);
+  z-index: 100;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  user-select: none;
+}
+
+.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.brand {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: var(--space-xs);
+}
+
+.collapsed .brand {
+  padding: 0;
+  justify-content: center;
+}
+
+.brandLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  overflow: hidden;
+  flex: 1;
+}
+
+.collapsed .brandLeft {
+  justify-content: center;
+  gap: 0;
+}
+
+.brandLogo {
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.brandTitle {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-inverse);
+  line-height: 1.2;
+}
+
+.brandSubtitle {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mobileCloseBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-inverse);
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.navSection {
+  flex: 1;
+  padding: var(--space-md) var(--space-sm);
+  overflow-y: auto;
+}
+
+.sectionLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 0 var(--space-sm) var(--space-xs);
+  margin-bottom: 4px;
+}
+
+.collapsed .sectionLabel {
+  text-align: center;
+  padding: 0 0 var(--space-xs);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--dur-fast);
+  text-decoration: none;
+}
+
+.collapsed .navItem {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.navItem:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-inverse);
+}
+
+.navItem:focus-visible,
+.toggleBtn:focus-visible,
+.collapsedToggleBtn:focus-visible {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: -2px;
+}
+
+.active {
+  background-color: var(--color-primary-light);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 116, 217, 0.35);
+}
+
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.navLabel {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navBadge {
+  background-color: var(--color-secondary);
+  color: var(--color-text-inverse);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  line-height: 1;
+}
+
+/* Footer Status Indicator & Toggle */
+.footer {
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  background-color: rgba(0, 0, 0, 0.15);
+  gap: var(--space-xs);
+}
+
+.collapsed .footer {
+  padding: var(--space-sm) 0;
+  justify-content: center;
+}
+
+.systemStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  overflow: hidden;
+  flex: 1;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-success);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--color-success);
+  flex-shrink: 0;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.statusInfo {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.statusTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-inverse);
+  line-height: 1.2;
+}
+
+.statusSubtitle {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+}
+
+.toggleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all var(--dur-fast);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.toggleBtn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-text-inverse);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.collapsedToggleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all var(--dur-fast);
+  cursor: pointer;
+}
+
+.collapsedToggleBtn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-text-inverse);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(46, 204, 64, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(46, 204, 64, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(46, 204, 64, 0);
+  }
+}
+
+/* Mobile Drawer Responsive Media Queries */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    transform: translateX(-100%);
+    width: 260px !important;
+  }
+
+  .sidebar.mobileOpen {
+    transform: translateX(0);
+    box-shadow: var(--shadow-modal);
+  }
+
+  .mobileCloseBtn {
+    display: flex;
+  }
+
+  .toggleBtn,
+  .collapsedToggleBtn {
+    display: none;
+  }
+}

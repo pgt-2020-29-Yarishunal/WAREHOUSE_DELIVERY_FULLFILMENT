@@ -1,0 +1,39 @@
+# Node & Frontend dependencies
+node_modules/
+*/node_modules/
+dist/
+*/dist/
+.vite/
+*/.vite/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# Go / Backend binaries and builds
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+backend/bin/
+bin/
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

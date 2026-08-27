@@ -1,0 +1,24 @@
+/* OpenLayers Map Styling for Indonesia */
+.ol-viewport {
+  background: transparent !important;
+}
+
+.ol-control {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.ol-control button {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #0288d1 !important;
+}
+
+.ol-control button:hover {
+  background-color: #0288d1 !important;
+  color: white !important;
+}
+
+.ol-scale-line {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 5px;
+  border-radius: 4px;
+}

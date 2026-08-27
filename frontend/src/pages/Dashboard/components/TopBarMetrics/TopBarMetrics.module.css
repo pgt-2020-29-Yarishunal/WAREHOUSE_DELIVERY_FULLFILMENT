@@ -1,0 +1,242 @@
+.topBarContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.metricCardsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+
+.metricCard {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+.metricCard:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.iconBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-light);
+}
+
+.badgeOrange {
+  background-color: #fff4e5;
+  border-color: rgba(255, 133, 27, 0.2);
+}
+
+.cardSubtitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.workingDayMain {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+}
+
+.highlightDay {
+  color: var(--color-primary-light);
+  font-weight: 700;
+}
+
+.calendarPeriod {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.mtdValueRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2px;
+}
+
+.mtdPercentBadgeLarge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: #fff4e5;
+  border: 1px solid rgba(255, 133, 27, 0.3);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+}
+
+.mtdPercentValue {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-secondary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.mtdPercentLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-secondary-hover);
+  letter-spacing: 0.02em;
+}
+
+.progressBarWrapper {
+  height: 6px;
+  width: 100%;
+  background-color: var(--color-bg-hover);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary-light), var(--color-secondary));
+  border-radius: var(--radius-full);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Control & Filter Station */
+.filtersStation {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-lg);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.filterLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.segmentedControl {
+  display: inline-flex;
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2px;
+}
+
+.segmentedBtn {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  transition: all var(--dur-fast);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.segmentedBtn:hover:not(.activeSegment) {
+  color: var(--color-text-main);
+}
+
+.activeSegment {
+  background-color: var(--color-bg-surface);
+  color: var(--color-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.filterDivider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--color-border);
+}
+
+.pillGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pillBtn {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-main);
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  transition: all var(--dur-fast);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pillBtn:hover:not(:disabled):not(.activePill) {
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-text-muted);
+}
+
+.activePill {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary);
+  font-weight: 600;
+}
+
+.disabledPill {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.segmentedBtn:focus-visible,
+.pillBtn:focus-visible {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .filterDivider {
+    display: none;
+  }
+}

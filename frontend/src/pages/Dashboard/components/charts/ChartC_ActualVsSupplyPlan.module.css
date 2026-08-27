@@ -1,0 +1,155 @@
+.card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 290px;
+  box-sizing: border-box;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+}
+
+.cardSubtitle {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.legendItem {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.dotActual { background-color: var(--color-primary); }
+.dotSupply { background-color: var(--color-secondary); }
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+  justify-content: space-around;
+}
+
+.categoryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.categoryName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.achievementBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.badgeGreen {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border: 1px solid rgba(46, 204, 64, 0.2);
+}
+
+.badgeYellow {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  border: 1px solid rgba(255, 183, 0, 0.25);
+}
+
+.badgeRed {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  border: 1px solid rgba(255, 65, 54, 0.2);
+}
+
+.barsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.barTrack {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: var(--color-bg-subtle);
+  height: 18px;
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  padding-right: var(--space-xs);
+}
+
+.barActual {
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-xs);
+  transition: width 0.5s ease;
+}
+
+.barSupply {
+  height: 100%;
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-xs);
+  transition: width 0.5s ease;
+}
+
+.barLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.barLabelMuted {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
