@@ -1,0 +1,42 @@
+[
+  {
+    "warehouse_id": "APW",
+    "warehouse_name": "A Product Warehouse",
+    "erp_table_source": "GT_BCD_STOCK_FGA",
+    "location": "Pabrik Gajah Tunggal, Tangerang - Plant A",
+    "status": "ACTIVE",
+    "description": "Gudang penyimpanan dan distribusi produk Bias (Bias Tire, Bias Tube, Bias Flap)",
+    "is_active": true,
+    "created_at": "0001-01-01T00:00:00Z"
+  },
+  {
+    "warehouse_id": "BPW",
+    "warehouse_name": "B Product Warehouse",
+    "erp_table_source": "GT_BCD_STOCK_FGB",
+    "location": "Pabrik Gajah Tunggal, Tangerang - Plant B",
+    "status": "ACTIVE",
+    "description": "Gudang penyimpanan dan distribusi produk Motor IRC (\"Motor\") dan Motor Zeneos",
+    "is_active": true,
+    "created_at": "0001-01-01T00:00:00Z"
+  },
+  {
+    "warehouse_id": "RPW",
+    "warehouse_name": "R Product Warehouse",
+    "erp_table_source": "GT_BCD_STOCK_FGR",
+    "location": "Pabrik Gajah Tunggal, Tangerang - Plant R",
+    "status": "ACTIVE",
+    "description": "Gudang penyimpanan dan distribusi produk TBR (TBR Tire) dan Bias Tube Non-Radial",
+    "is_active": true,
+    "created_at": "0001-01-01T00:00:00Z"
+  },
+  {
+    "warehouse_id": "DPW",
+    "warehouse_name": "D Product Warehouse",
+    "erp_table_source": "GT_BCD_STOCK",
+    "location": "Pabrik Gajah Tunggal, Tangerang - Plant D",
+    "status": "HOLD",
+    "description": "Gudang produk Radial Passenger (Status: HOLD sementara menunggu sub-pembagian lanjutan)",
+    "is_active": false,
+    "created_at": "0001-01-01T00:00:00Z"
+  }
+]

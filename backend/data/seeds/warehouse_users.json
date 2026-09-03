@@ -1,0 +1,62 @@
+[
+  {
+    "user_id": "USR-APW-01",
+    "username": "admin.apw",
+    "full_name": "Admin Gudang APW",
+    "role": "ADMIN_GUDANG",
+    "warehouse_id": "APW",
+    "warehouse": {
+      "warehouse_id": "",
+      "warehouse_name": "",
+      "erp_table_source": "",
+      "location": "",
+      "status": "",
+      "description": "",
+      "is_active": false,
+      "created_at": "0001-01-01T00:00:00Z"
+    },
+    "email": "admin.apw@gt-tires.com",
+    "is_active": true,
+    "created_at": "0001-01-01T00:00:00Z"
+  },
+  {
+    "user_id": "USR-BPW-01",
+    "username": "admin.bpw",
+    "full_name": "Admin Gudang BPW",
+    "role": "ADMIN_GUDANG",
+    "warehouse_id": "BPW",
+    "warehouse": {
+      "warehouse_id": "",
+      "warehouse_name": "",
+      "erp_table_source": "",
+      "location": "",
+      "status": "",
+      "description": "",
+      "is_active": false,
+      "created_at": "0001-01-01T00:00:00Z"
+    },
+    "email": "admin.bpw@gt-tires.com",
+    "is_active": true,
+    "created_at": "0001-01-01T00:00:00Z"
+  },
+  {
+    "user_id": "USR-RPW-01",
+    "username": "admin.rpw",
+    "full_name": "Admin Gudang RPW",
+    "role": "ADMIN_GUDANG",
+    "warehouse_id": "RPW",
+    "warehouse": {
+      "warehouse_id": "",
+      "warehouse_name": "",
+      "erp_table_source": "",
+      "location": "",
+      "status": "",
+      "description": "",
+      "is_active": false,
+      "created_at": "0001-01-01T00:00:00Z"
+    },
+    "email": "admin.rpw@gt-tires.com",
+    "is_active": true,
+    "created_at": "0001-01-01T00:00:00Z"
+  }
+]
