@@ -1,6 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '../../components/common/index.js';
+import { useAuth } from '../../hooks/useAuth.js';
 import styles from './Sidebar.module.css';
 
 const navItems = [
@@ -13,6 +14,9 @@ export const Sidebar = ({
   onToggle,
   onCloseMobile,
 }) => {
+  const { warehouseId, warehouse } = useAuth();
+  const warehouseName = warehouse?.warehouse_name || (warehouseId ? `Gudang ${warehouseId}` : 'Gudang Non-Radial');
+
   return (
     <aside
       className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''} ${
@@ -23,7 +27,7 @@ export const Sidebar = ({
       <div className={styles.brand}>
         <div className={styles.brandLeft}>
           <div className={styles.brandLogo}>
-            <Icon name="local_shipping" size={22} color="var(--color-secondary)" />
+            <Icon name="local_shipping" size={22} color="var(--color-secondary, #ff851b)" />
           </div>
           {!isCollapsed && (
             <div className={styles.brandText}>
@@ -80,7 +84,9 @@ export const Sidebar = ({
               <span className={styles.statusDot}></span>
               <div className={styles.statusInfo}>
                 <span className={styles.statusTitle}>Warehouse Server</span>
-                <span className={styles.statusSubtitle}>Online (Gudang 03)</span>
+                <span className={styles.statusSubtitle} title={warehouseName}>
+                  Online ({warehouseId || 'GT-WMS'})
+                </span>
               </div>
             </div>
             <button
@@ -98,8 +104,8 @@ export const Sidebar = ({
             type="button"
             className={styles.collapsedToggleBtn}
             onClick={onToggle}
-            aria-label="Perluas sidebar (Warehouse Server Online)"
-            title="Perluas sidebar (Warehouse Server Online)"
+            aria-label="Perluas sidebar"
+            title={`Perluas sidebar (${warehouseId || 'Online'})`}
           >
             <span className={styles.statusDot}></span>
             <Icon name="chevron_right" size={18} />
@@ -109,3 +115,5 @@ export const Sidebar = ({
     </aside>
   );
 };
+
+export default Sidebar;
