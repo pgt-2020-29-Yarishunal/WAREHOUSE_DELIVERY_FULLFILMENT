@@ -1,0 +1,46 @@
+Tabel yang dibutuhin 
+
+GT_BCD_STOCK -> punya DPW
+
+GT_BCD_STOCK_FGA -> APW
+
+GT_BCD_STOCK_FGB -> BPW
+
+GT_BCD_STOCK_FGR -> RPW 
+
+GT_ORA_MS_CUST
+
+GT_ORA_QUOTA view quota (plant b ga ada)
+
+GT_ORA_ORDER_PPC_WH
+
+GT_ORA_SHIPMENT_TRANS
+
+GT_ORA_SHIPMENTHOLD
+credit used semakin gede semakin gabisa dikirim, 97% gabisa dikirim udah deblock. harusnya ada comma nya.
+
+GT_ORA_TRS_DN_LOCAL
+
+Tabel Request Baru
+
+Supply Plan
+
+SO Closed M-1
+
+
+
+
+
+
+holdby kalo ada isinya dihold
+
+jdge OK itu pasti ok, blank itu ok, nj tidak ok, remark itu ada OE(?)
+
+1 row 1 barang
+
+
+
+
+
+
+
