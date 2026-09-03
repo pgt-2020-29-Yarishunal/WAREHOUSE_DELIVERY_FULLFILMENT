@@ -9,7 +9,7 @@ import {
 } from '../../data/provinceMapping.js';
 import styles from './ChartE_SpatialMap.module.css';
 
-export const ChartE_SpatialMap = ({ data = [], salesType = 'REP', productType = 'Tire', period = 'CURRENT_MONTH' }) => {
+export const ChartE_SpatialMap = ({ data = [], salesType = 'REP', productType = 'Tire', period = 'CURRENT_MONTH', availableBrands = ['ALL'] }) => {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [mapData, setMapData] = useState(data);
   const [hoveredProvince, setHoveredProvince] = useState(null);
@@ -23,23 +23,15 @@ export const ChartE_SpatialMap = ({ data = [], salesType = 'REP', productType = 
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const svgContainerRef = useRef(null);
 
-  const isAvailable = salesType === 'REP' && (productType === 'Tire' || productType === 'Tube') && period === 'CURRENT_MONTH';
+  const isAvailable = salesType === 'REP' && period === 'CURRENT_MONTH';
 
-  // Category filter options
+  // Category filter options dynamic based on active warehouse available brands
   const filterOptions = useMemo(() => {
-    if (productType === 'Tube') {
-      return [
-        { id: 'ALL', label: 'ALL' },
-        { id: 'IRC TUBE', label: 'IRC TUBE' },
-      ];
+    if (availableBrands && availableBrands.length > 0) {
+      return availableBrands.map((b) => ({ id: b, label: b === 'ALL' ? 'ALL' : b }));
     }
-    return [
-      { id: 'ALL', label: 'ALL' },
-      { id: 'IRC TUBELESS', label: 'IRC TUBELESS' },
-      { id: 'IRC TUBETYPE', label: 'IRC TUBETYPE' },
-      { id: 'ZENEOS TUBELESS', label: 'ZENEOS TUBELESS' },
-    ];
-  }, [productType]);
+    return [{ id: 'ALL', label: 'ALL' }];
+  }, [availableBrands]);
 
   // Reset category if not in filter options when productType switches
   useEffect(() => {

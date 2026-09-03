@@ -6,6 +6,7 @@ export const ChartJ_RepSOPreview = ({
   data = [],
   salesType = 'REP',
   productType = 'Tire',
+  availableBrands = ['ALL'],
   targetMTD = { percentage: 63.16 },
   targetEOW = { percentage: 89.47 },
 }) => {
@@ -13,24 +14,24 @@ export const ChartJ_RepSOPreview = ({
   if (salesType !== 'REP' || productType !== 'Tire') return null;
 
   // Unified In-Card Filter States
-  const [selectedBrandType, setSelectedBrandType] = useState('ALL'); // ALL | IRC TUBELESS | IRC TUBETYPE | ZENEOS TUBELESS
+  const [selectedBrandType, setSelectedBrandType] = useState('ALL');
   const [selectedProvinceFilter, setSelectedProvinceFilter] = useState('ALL');
 
-  const filterOptions = [
-    { id: 'ALL', label: 'ALL' },
-    { id: 'IRC TUBELESS', label: 'IRC TUBELESS' },
-    { id: 'IRC TUBETYPE', label: 'IRC TUBETYPE' },
-    { id: 'ZENEOS TUBELESS', label: 'ZENEOS TUBELESS' },
-  ];
+  const filterOptions = useMemo(() => {
+    if (availableBrands && availableBrands.length > 0) {
+      return availableBrands.map((b) => ({ id: b, label: b === 'ALL' ? 'ALL' : b }));
+    }
+    return [{ id: 'ALL', label: 'ALL' }];
+  }, [availableBrands]);
 
   const filteredData = useMemo(() => {
     return data.filter((item) => {
       const itemUnified = (item.category || `${item.brand || ''} ${item.tireType || ''}`).trim().toUpperCase();
       const matchBrandType =
         selectedBrandType === 'ALL' ||
-        itemUnified === selectedBrandType ||
-        itemUnified.includes(selectedBrandType) ||
-        selectedBrandType.includes(itemUnified);
+        itemUnified === selectedBrandType.toUpperCase() ||
+        itemUnified.includes(selectedBrandType.toUpperCase()) ||
+        selectedBrandType.toUpperCase().includes(itemUnified);
 
       const matchProv =
         selectedProvinceFilter === 'ALL' ||

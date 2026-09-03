@@ -1,32 +1,81 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { dashboardApi } from '../api/dashboardApi.js';
+import { tokenStorage } from '../../../services/tokenStorage.js';
 
 export const useDashboardData = () => {
-  // Global Top Bar Filter States
+  // Active warehouse resolution
+  const user = tokenStorage.getUser();
+  const defaultWarehouse = user?.role === 'executive' ? 'ALL' : (user?.warehouse_id || 'BPW');
+  const [selectedWarehouse, setSelectedWarehouse] = useState(defaultWarehouse);
+
+  // Global Filter States
   const [period, setPeriod] = useState('CURRENT_MONTH');
-  const [salesType, setSalesType] = useState('REP'); // REP | EXP | OEM
-  const [productType, setProductType] = useState('Tire'); // Tire | Tube | RIM Band
+  const [salesType, setSalesType] = useState('REP'); // REP | OEM | EXP
+  const [productType, setProductType] = useState('Tire'); // Tire | Tube | Flap | RIM Band | Valve
+  const [brandFilter, setBrandFilter] = useState('ALL');
 
-  // Cascading Rule Engine for Sales & Product Types
+  // Filter configuration from database / backend rules
+  const [filterConfig, setFilterConfig] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadFilters = async () => {
+      try {
+        const config = await dashboardApi.getFilterConfig(selectedWarehouse);
+        if (isMounted && config) {
+          setFilterConfig(config);
+        }
+      } catch (err) {
+        console.error('Failed to load filter config:', err);
+      }
+    };
+    loadFilters();
+    return () => { isMounted = false; };
+  }, [selectedWarehouse]);
+
+  // Derived available sales types from database
+  const availableSalesTypes = useMemo(() => {
+    return filterConfig?.availableSalesTypes || ['REP', 'OEM', 'EXP'];
+  }, [filterConfig]);
+
+  // Derived available product types per sales type from database
   const availableProductTypes = useMemo(() => {
-    if (salesType === 'EXP') return ['Tire'];
-    if (salesType === 'OEM') return ['Tire', 'Tube', 'RIM Band'];
-    return ['Tire', 'Tube']; // REP default
-  }, [salesType]);
+    if (filterConfig?.availableProductTypes?.[salesType]) {
+      return filterConfig.availableProductTypes[salesType];
+    }
+    return ['Tire'];
+  }, [filterConfig, salesType]);
 
-  // Sync product type when sales type changes
+  // Derived available brand filters per sales type & product type from database
+  const availableBrands = useMemo(() => {
+    const keyWithSales = `${salesType}_${productType}`;
+    if (filterConfig?.availableBrands?.[keyWithSales]) {
+      return filterConfig.availableBrands[keyWithSales];
+    }
+    if (filterConfig?.availableBrands?.[productType]) {
+      return filterConfig.availableBrands[productType];
+    }
+    return ['ALL'];
+  }, [filterConfig, salesType, productType]);
+
+  // Sync selected values when available options change
+  useEffect(() => {
+    if (!availableSalesTypes.includes(salesType)) {
+      setSalesType(availableSalesTypes[0] || 'REP');
+    }
+  }, [availableSalesTypes, salesType]);
+
   useEffect(() => {
     if (!availableProductTypes.includes(productType)) {
-      setProductType(availableProductTypes[0]);
+      setProductType(availableProductTypes[0] || 'Tire');
     }
-  }, [salesType, availableProductTypes, productType]);
+  }, [availableProductTypes, productType]);
 
-  const handleSalesTypeChange = useCallback((newSalesType) => {
-    setSalesType(newSalesType);
-    if (newSalesType === 'EXP') setProductType('Tire');
-    else if (newSalesType === 'OEM') setProductType('Tire');
-    else setProductType('Tire');
-  }, []);
+  useEffect(() => {
+    if (availableBrands.length > 0 && !availableBrands.includes(brandFilter)) {
+      setBrandFilter('ALL');
+    }
+  }, [availableBrands, brandFilter]);
 
   // Data States for Top Bar & 10 Charts
   const [topBar, setTopBar] = useState(null);
@@ -41,7 +90,7 @@ export const useDashboardData = () => {
   const [repSOPreview, setRepSOPreview] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Calculated MTD Metric according to formula: (currentWorkingDay / totalWorkingDays) * 100
+  // Calculated MTD Metric: (currentWorkingDay / totalWorkingDays) * 100
   const targetMTDCalculated = useMemo(() => {
     if (!topBar || !topBar.totalWorkingDays || !topBar.totalTarget) return { nominal: 0, percentage: 0 };
     const percentage = (topBar.currentWorkingDay / topBar.totalWorkingDays) * 100;
@@ -52,7 +101,7 @@ export const useDashboardData = () => {
     };
   }, [topBar]);
 
-  // Calculated EOW Metric according to formula: min(100, ((currentWorkingDay + 5) / totalWorkingDays) * 100)
+  // Calculated EOW Metric: min(100, ((currentWorkingDay + 5) / totalWorkingDays) * 100)
   const targetEOWCalculated = useMemo(() => {
     if (!topBar || !topBar.totalWorkingDays || !topBar.totalTarget) return { nominal: 0, percentage: 0 };
     const percentage = Math.min(100, ((topBar.currentWorkingDay + 5) / topBar.totalWorkingDays) * 100);
@@ -66,7 +115,7 @@ export const useDashboardData = () => {
     };
   }, [topBar]);
 
-  // Initial & Reactive Fetch
+  // Initial & Reactive Fetch from Backend API
   const loadAllData = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -82,16 +131,21 @@ export const useDashboardData = () => {
         provinceTrucksRes,
         repPreviewRes,
       ] = await Promise.all([
-        dashboardApi.getTopBarMetrics(salesType, productType, period),
-        dashboardApi.getSalesOrderStatus(salesType, productType),
-        dashboardApi.getActualVsSupply(salesType, productType),
-        dashboardApi.getAreaAchievement(salesType, productType),
-        dashboardApi.getSpatialMapData(salesType, productType, period, 'ALL'),
-        dashboardApi.getBottleneckSKUs(salesType, productType, 'ALL'),
-        dashboardApi.getWarehouseSOStatus(salesType, productType),
-        dashboardApi.getDailyTruckPlan(salesType, productType),
-        dashboardApi.getProvinceTruckDistribution(salesType, productType, 'ALL'),
-        dashboardApi.getRepSOPreview({ salesType, productType }),
+        dashboardApi.getTopBarMetrics(salesType, productType, period, brandFilter, selectedWarehouse),
+        dashboardApi.getSalesOrderStatus(salesType, productType, brandFilter, selectedWarehouse),
+        dashboardApi.getActualVsSupply(salesType, productType, brandFilter, selectedWarehouse),
+        dashboardApi.getAreaAchievement(salesType, productType, brandFilter, selectedWarehouse),
+        dashboardApi.getSpatialMapData(salesType, productType, period, brandFilter, selectedWarehouse),
+        dashboardApi.getBottleneckSKUs(salesType, productType, brandFilter, selectedWarehouse),
+        dashboardApi.getWarehouseSOStatus(salesType, productType, brandFilter, selectedWarehouse),
+        dashboardApi.getDailyTruckPlan(salesType, productType, brandFilter, selectedWarehouse),
+        dashboardApi.getProvinceTruckDistribution(salesType, productType, 'ALL', brandFilter, selectedWarehouse),
+        dashboardApi.getRepSOPreview({
+          salesType,
+          productType,
+          brand: brandFilter,
+          warehouseId: selectedWarehouse,
+        }),
       ]);
 
       setTopBar(topBarRes);
@@ -105,25 +159,34 @@ export const useDashboardData = () => {
       setProvinceTrucks(provinceTrucksRes);
       setRepSOPreview(repPreviewRes);
     } catch (err) {
-      console.error('Error fetching dashboard datasets', err);
+      console.error('Error fetching dashboard datasets from backend:', err);
     } finally {
       setIsLoading(false);
     }
-  }, [period, salesType, productType]);
+  }, [period, salesType, productType, brandFilter, selectedWarehouse]);
 
   useEffect(() => {
     loadAllData();
   }, [loadAllData]);
 
   return {
+    // Warehouse Filter
+    selectedWarehouse,
+    setSelectedWarehouse,
+    userRole: user?.role,
+
     // Global filter states
     period,
     setPeriod,
     salesType,
-    setSalesType: handleSalesTypeChange,
+    setSalesType,
+    availableSalesTypes,
     productType,
     setProductType,
     availableProductTypes,
+    brandFilter,
+    setBrandFilter,
+    availableBrands,
 
     // Metrics & Datasets
     topBar,

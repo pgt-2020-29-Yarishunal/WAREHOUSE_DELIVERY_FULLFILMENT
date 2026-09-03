@@ -17,13 +17,20 @@ export const DashboardPage = () => {
   const { globalSearch } = useOutletContext() || {};
 
   const {
+    selectedWarehouse,
+    setSelectedWarehouse,
+    userRole,
     period,
     setPeriod,
     salesType,
     setSalesType,
+    availableSalesTypes,
     productType,
     setProductType,
     availableProductTypes,
+    brandFilter,
+    setBrandFilter,
+    availableBrands,
     topBar,
     targetMTDCalculated,
     targetEOWCalculated,
@@ -58,9 +65,16 @@ export const DashboardPage = () => {
         onPeriodChange={setPeriod}
         salesType={salesType}
         onSalesTypeChange={setSalesType}
+        availableSalesTypes={availableSalesTypes}
         productType={productType}
         onProductTypeChange={setProductType}
         availableProductTypes={availableProductTypes}
+        brandFilter={brandFilter}
+        onBrandFilterChange={setBrandFilter}
+        availableBrands={availableBrands}
+        selectedWarehouse={selectedWarehouse}
+        onWarehouseChange={setSelectedWarehouse}
+        userRole={userRole}
       />
 
       {/* 2. Analytical Layer 1: Status Overview (Chart B & Chart C) */}
@@ -81,6 +95,7 @@ export const DashboardPage = () => {
             salesType={salesType}
             productType={productType}
             period={period}
+            availableBrands={availableBrands}
           />
         </div>
         <div className={styles.gridCol}>
@@ -115,6 +130,7 @@ export const DashboardPage = () => {
             data={repSOPreview}
             salesType={salesType}
             productType={productType}
+            availableBrands={availableBrands}
             targetMTD={targetMTDCalculated}
             targetEOW={targetEOWCalculated}
           />

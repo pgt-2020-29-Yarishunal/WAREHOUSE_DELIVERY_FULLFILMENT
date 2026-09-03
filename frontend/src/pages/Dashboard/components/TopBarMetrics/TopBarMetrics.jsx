@@ -9,11 +9,24 @@ export const TopBarMetrics = ({
   onPeriodChange,
   salesType,
   onSalesTypeChange,
+  availableSalesTypes = ['REP', 'OEM', 'EXP'],
   productType,
   onProductTypeChange,
-  availableProductTypes,
+  availableProductTypes = ['Tire'],
+  brandFilter = 'ALL',
+  onBrandFilterChange,
+  availableBrands = ['ALL'],
+  selectedWarehouse,
+  onWarehouseChange,
+  userRole,
 }) => {
   if (!topBar) return null;
+
+  const salesTypeLabels = {
+    REP: 'Replacement (REP)',
+    OEM: 'OEM',
+    EXP: 'Export (EXP)',
+  };
 
   return (
     <section className={styles.topBarContainer} aria-label="Global Filter & Header Metrics">
@@ -65,6 +78,34 @@ export const TopBarMetrics = ({
 
       {/* Row 2: Global Control & Cascading Filters Station */}
       <div className={styles.filtersStation}>
+        {/* Executive Warehouse Selector if applicable */}
+        {userRole === 'executive' && onWarehouseChange && (
+          <>
+            <div className={styles.filterGroup}>
+              <span className={styles.filterLabel}>Gudang:</span>
+              <div className={styles.pillGroup}>
+                {[
+                  { id: 'ALL', label: 'Semua Gudang' },
+                  { id: 'APW', label: 'APW (Bias)' },
+                  { id: 'BPW', label: 'BPW (Motor)' },
+                  { id: 'DPW', label: 'DPW (Radial)' },
+                  { id: 'RPW', label: 'RPW (TBR)' },
+                ].map((wh) => (
+                  <button
+                    key={wh.id}
+                    type="button"
+                    className={`${styles.pillBtn} ${selectedWarehouse === wh.id ? styles.activePill : ''}`}
+                    onClick={() => onWarehouseChange(wh.id)}
+                  >
+                    {wh.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className={styles.filterDivider} />
+          </>
+        )}
+
         {/* Period Selector (Segmented Button Group) */}
         <div className={styles.filterGroup}>
           <span className={styles.filterLabel}>Periode:</span>
@@ -93,18 +134,14 @@ export const TopBarMetrics = ({
         <div className={styles.filterGroup}>
           <span className={styles.filterLabel}>Tipe Penjualan:</span>
           <div className={styles.pillGroup}>
-            {[
-              { id: 'REP', label: 'Replacement (REP)' },
-              { id: 'EXP', label: 'Export (EXP)' },
-              { id: 'OEM', label: 'OEM' },
-            ].map((item) => (
+            {availableSalesTypes.map((item) => (
               <button
-                key={item.id}
+                key={item}
                 type="button"
-                className={`${styles.pillBtn} ${salesType === item.id ? styles.activePill : ''}`}
-                onClick={() => onSalesTypeChange(item.id)}
+                className={`${styles.pillBtn} ${salesType === item ? styles.activePill : ''}`}
+                onClick={() => onSalesTypeChange(item)}
               >
-                {item.label}
+                {salesTypeLabels[item] || item}
               </button>
             ))}
           </div>
@@ -116,20 +153,14 @@ export const TopBarMetrics = ({
         <div className={styles.filterGroup}>
           <span className={styles.filterLabel}>Tipe Produk:</span>
           <div className={styles.pillGroup}>
-            {['Tire', 'Tube', 'RIM Band'].map((prod) => {
-              const isAvailable = availableProductTypes.includes(prod);
-              const isSelected = productType === prod && isAvailable;
-
+            {availableProductTypes.map((prod) => {
+              const isSelected = productType === prod;
               return (
                 <button
                   key={prod}
                   type="button"
-                  disabled={!isAvailable}
-                  className={`${styles.pillBtn} ${isSelected ? styles.activePill : ''} ${
-                    !isAvailable ? styles.disabledPill : ''
-                  }`}
-                  onClick={() => isAvailable && onProductTypeChange(prod)}
-                  title={!isAvailable ? `Tidak tersedia untuk tipe penjualan ${salesType}` : undefined}
+                  className={`${styles.pillBtn} ${isSelected ? styles.activePill : ''}`}
+                  onClick={() => onProductTypeChange(prod)}
                 >
                   {prod}
                 </button>
@@ -137,6 +168,32 @@ export const TopBarMetrics = ({
             })}
           </div>
         </div>
+
+        {/* Cascading Sub-Filter: Merek / Kategori (Misal IRC Tubeless vs Tubetype, Zeneos) */}
+        {availableBrands && availableBrands.length > 1 && onBrandFilterChange && (
+          <>
+            <div className={styles.filterDivider} />
+            <div className={styles.filterGroup}>
+              <span className={styles.filterLabel}>Kategori / Merek:</span>
+              <div className={styles.pillGroup}>
+                {availableBrands.map((b) => {
+                  const isSelected = brandFilter === b;
+                  const label = b === 'ALL' ? 'Semua Merek' : b;
+                  return (
+                    <button
+                      key={b}
+                      type="button"
+                      className={`${styles.pillBtn} ${isSelected ? styles.activePill : ''}`}
+                      onClick={() => onBrandFilterChange(b)}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
